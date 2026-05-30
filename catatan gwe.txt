@@ -1,0 +1,59 @@
+oke jadi disini kita mau bikin apk dari golang ttg system manajemen tagihan bulanan (simtab)
+===================================================================
+jadi apk ini ngapain si
+Aplikasi Daftar Tagihan Bulanan
+Orang biasanya punya banyak tagihan:
+
+Listrik
+Internet
+Air
+Netflix
+SPP
+BPJS
+Cicilan
+
+Masalahnya:
+
+Tagihan banyak
+Tanggal jatuh tempo berbeda-beda
+Bisa lupa bayar
+Sulit tahu mana yang harus dibayar dulu
+Sulit menghitung total pengeluaran
+
+Jadi aplikasi dibuat untuk:
+	Mencatat
+	↓
+	Mengelola
+	↓
+	Memantau
+	↓
+	Mengingatkan
+
+Sederhananya:
+aplikasi ini seperti buku catatan tagihan digital di terminal.
+
+Jatuh tempo = batas terakhir pembayaran
+
+===================================================================
+jadi dsini ada user
+
+aku mau bikin Jadi main() seperti "pintu masuk" saja.
+nanti dia cuman akan panggil inti logic nya di subprogram biar bersih main nya
+
+1) tampilan awal nanti akan ada beberapa opsi
+	1. tambah tagihan
+	   ini tu buat daftar tagihan, jadi si array nya sebelumnya
+	   masih kosong, jadi daftar dulu
+	2. ubah tagihan
+	   ini tu ubah kalo semisal si user salah masukin
+	3. hapus tagihan
+	   ini tu mau hapus tagihan yang sudah ada
+	4. lihat semua tagihan
+	5. cari tagihan
+	6. urutkan tagihan	
+	7. ubah status pembayaran
+	8. cek statistic tagihan
+	9. keluar
+
+
+	
