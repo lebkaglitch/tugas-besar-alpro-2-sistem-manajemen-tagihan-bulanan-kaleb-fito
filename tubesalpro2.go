@@ -11,11 +11,12 @@ type Tagihan struct {
 type arrtagihan [nmax]Tagihan
 
 func main() {
-	var jumlahtagihan int
+	var jumlahtagihan, idterkahir int
 	var data arrtagihan
 	jumlahtagihan = 0
+	idterkahir = 0
 	// bingung sebenarnya pilihan ini mau di deklarasi di main atau di prosedur jalankanpilihan, karna kan cuma di pake di prosedur itu doang (solusinya udah ku pindah)
-	jalankanpilihan(&data, &jumlahtagihan) // bingung di main itu mau manggil prosedur yg mana antara menu utama ama jalankan pilihan
+	jalankanpilihan(&data, &jumlahtagihan, &idterkahir) // bingung di main itu mau manggil prosedur yg mana antara menu utama ama jalankan pilihan
 }
 func menuutama(pilihanmenu *int) {
 	fmt.Println("==============================")
@@ -34,7 +35,7 @@ func menuutama(pilihanmenu *int) {
 	fmt.Print("Masukkan Pilihan Anda: ")
 	fmt.Scan(pilihanmenu)
 }
-func jalankanpilihan(x *arrtagihan, n *int) {
+func jalankanpilihan(x *arrtagihan, n *int, idterakhir *int) {
 	var pilihan int
 	pilihan = -1
 	for pilihan != 0 { // disini nih mksudku dari comment line 11
@@ -43,11 +44,11 @@ func jalankanpilihan(x *arrtagihan, n *int) {
 		default:
 			fmt.Println("Pilihan anda tidak tersedia :(")
 		case 1:
-			tambahtagihan(x, n)
+			tambahtagihan(x, n, idterakhir)
 		case 2:
 			ubahtagihan()
 		case 3:
-			hapustagihan()
+			hapustagihan(x, n)
 		case 4:
 			lihatsemuatagihan(x, *n)
 		case 5:
@@ -59,14 +60,12 @@ func jalankanpilihan(x *arrtagihan, n *int) {
 		}
 	}
 }
-func tambahtagihan(data *arrtagihan, jumlahtagihan *int) {
+func tambahtagihan(data *arrtagihan, jumlahtagihan *int, idterakhir *int) {
 	var t Tagihan
 	if *jumlahtagihan < nmax {
 		fmt.Println()
 		fmt.Println("======TAMBAH TAGIHAN======")
 		fmt.Println()
-		fmt.Print("ID Tagihan: ")
-		fmt.Scan(&t.id)
 		fmt.Print("Nama Tagihan: ")
 		fmt.Scan(&t.nama)
 		fmt.Print("Kategori: ")
@@ -80,8 +79,11 @@ func tambahtagihan(data *arrtagihan, jumlahtagihan *int) {
 		fmt.Print("Tahun Jatuh Tempo: ")
 		fmt.Scan(&t.tahun)
 		t.status = "Belum Lunas"
+
+		*idterakhir = *idterakhir + 1
+		t.id = *idterakhir
 		(*data)[*jumlahtagihan] = t
-		*jumlahtagihan++
+		*jumlahtagihan = *jumlahtagihan + 1
 		fmt.Println()
 		fmt.Println("TAGIHAN ANDA BERHASIL DITAMBAHKAN :') ")
 		fmt.Println()
@@ -94,10 +96,38 @@ func ubahtagihan() {
 	fmt.Println("menu ubah tagihan")
 }
 
-func hapustagihan() {
-	fmt.Println("menu hapus tagihan")
-}
+func hapustagihan(x *arrtagihan, jumlahtagihan *int) {
+	var idfordelete, indexposisi, i int
 
+	if *jumlahtagihan == 0 {
+		fmt.Println("Belum ada tagihan")
+		return
+	}
+	fmt.Println()
+	fmt.Println("Masukkan ID tagihan yang akan dihaous: ")
+	fmt.Scan(&idfordelete)
+
+	indexposisi = cariposisiID(*x, *jumlahtagihan, idfordelete)
+	if indexposisi == -1 {
+		fmt.Println("Maaf, ID yang dicari tidak ditemukan")
+	} else {
+		for i = indexposisi; i < *jumlahtagihan-1; i++ {
+			(*x)[i] = (*x)[i+1]
+		}
+		*jumlahtagihan = *jumlahtagihan - 1
+
+		fmt.Println("Selamat, Tagihan anda berhasil dihapus")
+	}
+}
+func cariposisiID(x arrtagihan, jumlahtagihan int, targetid int) int { // ini function yg digunakan fitur hapus dan ubah dalam mencari ID nya, krna utk hapus dan ubah itu aku buat dengan mencari ID yg dicari
+	var i int
+	for i = 0; i < jumlahtagihan; i++ {
+		if x[i].id == targetid {
+			return i
+		}
+	}
+	return -1
+}
 func lihatsemuatagihan(x *arrtagihan, jumlahtagihan int) {
 	var i int
 	if jumlahtagihan == 0 {
@@ -108,16 +138,8 @@ func lihatsemuatagihan(x *arrtagihan, jumlahtagihan int) {
 		fmt.Println("								LIST DAFTAR TAGIHAN ANDA")
 		fmt.Println("========================================================================================================================")
 		for i = 0; i < jumlahtagihan; i++ {
-			fmt.Printf("| ID: %d\t | NAMA: %s\t | KATEGORI: %s\t | NOMINAL: %d\t | TANGGAL: %d\t | BULAN: %d\t | TAHUN: %d\t | Status Sekarang: %s\t |\n",
+			fmt.Printf("| ID: %d\t | NAMA: %-10s\t | KATEGORI: %-10s\t | NOMINAL: %d\t | TANGGAL: %d\t | BULAN: %d\t | TAHUN: %d\t | Status Sekarang: %s\t |\n",
 				x[i].id, x[i].nama, x[i].kategori, x[i].nominal, x[i].tanggal, x[i].bulan, x[i].tahun, x[i].status)
-			//fmt.Println(x[i].id)
-			//fmt.Println(x[i].nama)
-			//fmt.Println(x[i].kategori)
-			//fmt.Println(x[i].nominal)
-			//fmt.Println(x[i].tanggal)
-			//fmt.Println(x[i].bulan)
-			//fmt.Println(x[i].tahun)
-			//fmt.Println(x[i].status)
 		}
 	}
 }
