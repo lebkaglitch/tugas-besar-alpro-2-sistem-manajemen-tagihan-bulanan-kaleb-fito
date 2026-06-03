@@ -18,9 +18,9 @@ func main() {
 	jalankanpilihan(&data, &jumlahtagihan) // bingung di main itu mau manggil prosedur yg mana antara menu utama ama jalankan pilihan
 }
 func menuutama(pilihanmenu *int) {
-	fmt.Println("===========================")
-	fmt.Println("		SELAMAT DATANG  	")
-	fmt.Println("===========================")
+	fmt.Println("==============================")
+	fmt.Println("	SELAMAT DATANG  	")
+	fmt.Println("==============================")
 	fmt.Println()
 	fmt.Println("1. Tambah Tagihan")
 	fmt.Println("2. Ubah Tagihan")
@@ -30,8 +30,8 @@ func menuutama(pilihanmenu *int) {
 	fmt.Println("6. Urutkan Tagihan") // ini buat selection dan insertion sort
 	fmt.Println("0. keluar")
 	fmt.Println()
-	fmt.Println("===========================")
-	fmt.Print("pilihan anda : ")
+	fmt.Println("==============================")
+	fmt.Print("Masukkan Pilihan Anda: ")
 	fmt.Scan(pilihanmenu)
 }
 func jalankanpilihan(x *arrtagihan, n *int) {
@@ -62,36 +62,31 @@ func jalankanpilihan(x *arrtagihan, n *int) {
 func tambahtagihan(data *arrtagihan, jumlahtagihan *int) {
 	var t Tagihan
 	if *jumlahtagihan < nmax {
+		fmt.Println()
 		fmt.Println("======TAMBAH TAGIHAN======")
 		fmt.Println()
 		fmt.Print("ID Tagihan: ")
 		fmt.Scan(&t.id)
-
 		fmt.Print("Nama Tagihan: ")
 		fmt.Scan(&t.nama)
-
 		fmt.Print("Kategori: ")
 		fmt.Scan(&t.kategori)
-
 		fmt.Print("Nominal: ")
 		fmt.Scan(&t.nominal)
-
 		fmt.Print("Tanggal Jatuh Tempo: ")
 		fmt.Scan(&t.tanggal)
-
 		fmt.Print("Bulan Jatuh Tempo: ")
 		fmt.Scan(&t.bulan)
-
 		fmt.Print("Tahun Jatuh Tempo: ")
 		fmt.Scan(&t.tahun)
-
 		t.status = "Belum Lunas"
 		(*data)[*jumlahtagihan] = t
 		*jumlahtagihan++
-
-		fmt.Println("Tagihan Berhasil Ditambahkan!")
+		fmt.Println()
+		fmt.Println("TAGIHAN ANDA BERHASIL DITAMBAHKAN :') ")
+		fmt.Println()
 	} else {
-		fmt.Println("Maaf tagihan anda sudah penuh")
+		fmt.Println("MAAF TAGIHAN ANDA SUDAH PENUH T_T")
 	}
 }
 
@@ -108,15 +103,21 @@ func lihatsemuatagihan(x *arrtagihan, jumlahtagihan int) {
 	if jumlahtagihan == 0 {
 		fmt.Println("Maaf anda belum memiliki tagihan, silahkan tambahkan tagihan anda!")
 	} else {
+		fmt.Println()
+		fmt.Println("========================================================================================================================")
+		fmt.Println("								LIST DAFTAR TAGIHAN ANDA")
+		fmt.Println("========================================================================================================================")
 		for i = 0; i < jumlahtagihan; i++ {
-			fmt.Println(x[i].id)
-			fmt.Println(x[i].nama)
-			fmt.Println(x[i].kategori)
-			fmt.Println(x[i].nominal)
-			fmt.Println(x[i].tanggal)
-			fmt.Println(x[i].bulan)
-			fmt.Println(x[i].tahun)
-			fmt.Println(x[i].status)
+			fmt.Printf("| ID: %d\t | NAMA: %s\t | KATEGORI: %s\t | NOMINAL: %d\t | TANGGAL: %d\t | BULAN: %d\t | TAHUN: %d\t | Status Sekarang: %s\t |\n",
+				x[i].id, x[i].nama, x[i].kategori, x[i].nominal, x[i].tanggal, x[i].bulan, x[i].tahun, x[i].status)
+			//fmt.Println(x[i].id)
+			//fmt.Println(x[i].nama)
+			//fmt.Println(x[i].kategori)
+			//fmt.Println(x[i].nominal)
+			//fmt.Println(x[i].tanggal)
+			//fmt.Println(x[i].bulan)
+			//fmt.Println(x[i].tahun)
+			//fmt.Println(x[i].status)
 		}
 	}
 }
