@@ -156,3 +156,31 @@ func urutkantagihan() {
 // bagian kaleb ke atas
 
 // aku mau nambahin nanti agar ID itu otomatis nambah tanpa si user perlu ngisi sendiri, nanti akan nambahin var idterkahir buat ngatasin solusi di hapustagihan
+ac
+
+//tanda lunas
+func tandailunas(x *arrtagihan, jumlahtagihan int) {
+	var idcari, idx int
+ 
+	if jumlahtagihan == 0 {
+		fmt.Println("Belum ada tagihan.")
+		return
+	}
+ 
+	fmt.Println()
+	fmt.Println("======TANDAI LUNAS======")
+	fmt.Print("Masukkan ID tagihan yang sudah dibayar: ")
+	fmt.Scan(&idcari)
+ 
+	idx = cariposisiID(*x, jumlahtagihan, idcari)
+	if idx == -1 {
+		fmt.Println("Maaf, ID yang dicari tidak ditemukan")
+	} else if (*x)[idx].status == "Lunas" {
+		fmt.Printf("Tagihan '%s' sudah berstatus Lunas.\n", (*x)[idx].nama)
+	} else {
+		(*x)[idx].status = "Lunas"
+		fmt.Printf("Tagihan '%s' berhasil ditandai Lunas!\n", (*x)[idx].nama)
+	}
+}
+
+//
