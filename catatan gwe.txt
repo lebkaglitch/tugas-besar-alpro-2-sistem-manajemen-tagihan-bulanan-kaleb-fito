@@ -57,3 +57,11 @@ nanti dia cuman akan panggil inti logic nya di subprogram biar bersih main nya
 
 
 	
+===================================================================================
+beberapa perintah git
+git pull origin main = ngambil hasil update codingan terbaru yg mungkin udah dicicil temen
+git add = untuk utk merekam perubahan file atau vodingan
+	biasa nya setelah add ada lanjutan kek "git add ."
+		"." gunanya untuk merekam semua file yg ada dalam folder yg ada di alamat
+	atau bisa juga "git add tubesalpro2.go"
+		setelah add itu adalah file dari codinganya, ini tu hanya merekam yg ada di file itu doang, di file lain ga kerekam

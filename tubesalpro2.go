@@ -20,7 +20,7 @@ func main() {
 }
 func menuutama(pilihanmenu *int) {
 	fmt.Println("==============================")
-	fmt.Println("	SELAMAT DATANG  	")
+	fmt.Println("|	SELAMAT DATANG       |")
 	fmt.Println("==============================")
 	fmt.Println()
 	fmt.Println("1. Tambah Tagihan")
@@ -33,7 +33,7 @@ func menuutama(pilihanmenu *int) {
 	fmt.Println("0. keluar")
 	fmt.Println()
 	fmt.Println("==============================")
-	fmt.Print("Masukkan Pilihan Anda: ")
+	fmt.Print("Masukkan Pilihan Anda (1/2/3/4/5/6/7/0): ")
 	fmt.Scan(pilihanmenu)
 }
 func jalankanpilihan(x *arrtagihan, n *int, idterakhir *int) {
@@ -55,7 +55,7 @@ func jalankanpilihan(x *arrtagihan, n *int, idterakhir *int) {
 		case 5:
 			caritagihan(x, *n)
 		case 6:
-			urutkantagihan()
+			urutkantagihan(x, *n)
 		case 7:
 			tandailunas(x, *n)
 		case 0:
@@ -164,7 +164,7 @@ func ubahtagihan(x *arrtagihan, jumlahtagihan int) {
 				(*x)[indexposisi].tanggal = tanggalBaru
 				(*x)[indexposisi].bulan = bulanBaru
 				(*x)[indexposisi].tahun = tahunBaru
-				fmt.Println("Tanggal Jatuh Tempo Berhasil Diubah menjadi '%d/%d/%d'\n", tanggalBaru, bulanBaru, tahunBaru)
+				fmt.Printf("Tanggal Jatuh Tempo Berhasil Diubah menjadi '%d/%d/%d'\n", tanggalBaru, bulanBaru, tahunBaru)
 				fmt.Println()
 			case 5:
 				fmt.Println("Kembali ke menu utama")
@@ -246,7 +246,6 @@ func caritagihan(x *arrtagihan, jumlahtagihan int) {
 		fmt.Println("Belum ada tagihan untuk dicari.")
 		return
 	}
-
 	var pilihanCari int
 	fmt.Println()
 	fmt.Println("======CARI TAGIHAN======")
@@ -331,14 +330,116 @@ func lihatsemuatagihan(x *arrtagihan, jumlahtagihan int) {
 	}
 }
 
-func caritagihan() {
-	fmt.Println("menu cari tagihan")
+func urutkantagihan(x *arrtagihan, jumlahtagihan int) {
+	if jumlahtagihan == 0 {
+		fmt.Println("Maaf anda belum memiliki tagihan")
+	} else {
+		var pilihansort, pilihanurut int
+		fmt.Println()
+		fmt.Println("===== URUTKAN TAGIHAN =====")
+		fmt.Println()
+		fmt.Println("1. selection sort")
+		fmt.Println("2. insertion sort")
+		fmt.Println()
+		fmt.Print("pilih metode pengurutan anda: ")
+		fmt.Scan(&pilihansort)
+
+		fmt.Println()
+		fmt.Println("1. Ascending (jatuh tempo terdekat)")
+		fmt.Println("2. Desscending (jatuh tempo terjauh)")
+		fmt.Scan(&pilihanurut)
+
+		switch pilihansort {
+		default:
+			fmt.Println("maaf pilihan anda tidak tersedia")
+		case 1:
+			selectionsort(x, jumlahtagihan, pilihanurut)
+			fmt.Println()
+			fmt.Println("Data setalah diurutkan:")
+			lihatsemuatagihan(x, jumlahtagihan)
+		case 2:
+			insertionsort(x, jumlahtagihan, pilihanurut)
+			fmt.Println()
+			fmt.Println("Data setelah diurutkan:")
+			lihatsemuatagihan(x, jumlahtagihan)
+		}
+	}
 }
 
-func urutkantagihan() {
-	fmt.Println("menu urutkan tagihan")
-	// aku ada rencana  di bagian lihat semua tagihan and sorting, mau nge limit list nya only 10 (jika data nya lebih dari 10), nanti akan tekan enter untuk ganti halamaan
+func nilaitanggal(t Tagihan) int { // prosedur untuk mencari
+	return t.tahun*10000 + t.bulan*100 + t.tanggal
 }
+
+func selectionsort(x *arrtagihan, jumlahtagihan int, pilihanurut int) {
+	var i, j, idx int
+	var temp Tagihan
+	if pilihanurut == 1 { // ascending
+		for i = 0; i < jumlahtagihan-1; i++ {
+			idx = i
+			for j = i + 1; j < jumlahtagihan; j++ {
+				if nilaitanggal((*x)[j]) < nilaitanggal((*x)[idx]) {
+					idx = j
+				}
+			}
+			temp = (*x)[i]
+			(*x)[i] = (*x)[idx]
+			(*x)[idx] = temp
+		}
+	} else if pilihanurut == 2 { // desceding
+		for i = 0; i < jumlahtagihan-1; i++ {
+			idx = i
+			for j = i + 1; j < jumlahtagihan; j++ {
+				if nilaitanggal((*x)[j]) > nilaitanggal((*x)[idx]) {
+					idx = j
+				}
+			}
+			temp = (*x)[i]
+			(*x)[i] = (*x)[idx]
+			(*x)[idx] = temp
+		}
+	} else if pilihanurut != 1 && pilihanurut != 2 {
+		fmt.Println()
+		fmt.Println("maaf pilihan anda tidak tersedia")
+		return
+	}
+	fmt.Println()
+	fmt.Println("Pengurutan berhasil dilakukan")
+	fmt.Println("Diurutkan berdasarkan tanggal jatuh tempo")
+}
+func insertionsort(x *arrtagihan, jumlahtagihan int, pilihanurut int) {
+	var i, j int
+	var temp Tagihan
+	if pilihanurut == 1 { // ascending
+		for i = 1; i < jumlahtagihan; i++ {
+			temp = (*x)[i]
+			j = i - 1
+			for j >= 0 && nilaitanggal((*x)[j]) > nilaitanggal(temp) {
+				(*x)[j+1] = (*x)[j]
+				j--
+			}
+			(*x)[j+1] = temp
+		}
+	} else if pilihanurut == 2 {
+		for i = 1; i < jumlahtagihan; i++ {
+			temp = (*x)[i]
+			j = i - 1
+			for j >= 0 && nilaitanggal((*x)[j]) < nilaitanggal(temp) {
+				(*x)[j+1] = (*x)[j]
+				j--
+			}
+			(*x)[j+1] = temp
+		}
+	} else if pilihanurut != 1 && pilihanurut != 2 {
+		fmt.Println()
+		fmt.Println("maaf pilihan anda tidak tersedia")
+		return
+	}
+	fmt.Println()
+	fmt.Println("Pengurutan berhasil dilakukan")
+	fmt.Println("Diurutkan berdasarkan tanggal jatuh tempo")
+}
+
+// aku ada rencana  di bagian lihat semua tagihan and sorting, mau nge limit list nya only 10 (jika data nya lebih dari 10), nanti akan tekan enter untuk ganti halamaan
 
 // bagian kaleb ke atas
 
