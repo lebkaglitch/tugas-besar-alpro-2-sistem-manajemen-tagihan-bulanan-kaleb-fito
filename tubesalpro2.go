@@ -53,7 +53,7 @@ func jalankanpilihan(x *arrtagihan, n *int, idterakhir *int) {
 		case 4:
 			lihatsemuatagihan(x, *n)
 		case 5:
-			caritagihan()
+			caritagihan(x, *n)
 		case 6:
 			urutkantagihan()
 		case 7:
@@ -200,6 +200,7 @@ func hapustagihan(x *arrtagihan, jumlahtagihan *int) {
 		fmt.Println("Selamat, Tagihan anda berhasil dihapus")
 	}
 }
+
 func cariposisiID(x arrtagihan, jumlahtagihan int, targetid int) int { // ini function yg digunakan fitur hapus dan ubah dalam mencari ID nya, krna utk hapus dan ubah itu aku buat dengan mencari ID yg dicari
 	var i int
 	for i = 0; i < jumlahtagihan; i++ {
@@ -209,6 +210,109 @@ func cariposisiID(x arrtagihan, jumlahtagihan int, targetid int) int { // ini fu
 	}
 	return -1
 }
+
+// ===== SEQUENTIAL SEARCH =====
+func sequentialSearchNama(x arrtagihan, jumlahtagihan int, targetNama string) []int {
+	var hasil []int
+	var i int
+	for i = 0; i < jumlahtagihan; i++ {
+		if x[i].nama == targetNama {
+			hasil = append(hasil, i)
+		}
+	}
+	return hasil
+}
+
+// ===== BINARY SEARCH =====
+func binarySearchNominal(x arrtagihan, jumlahtagihan int, targetNominal int) int {
+	kiri := 0
+	kanan := jumlahtagihan - 1
+	for kiri <= kanan {
+		tengah := (kiri + kanan) / 2
+		if x[tengah].nominal == targetNominal {
+			return tengah
+		} else if x[tengah].nominal < targetNominal {
+			kiri = tengah + 1
+		} else {
+			kanan = tengah - 1
+		}
+	}
+	return -1
+}
+
+// ===== FUNGSI CARI TAGIHAN =====
+func caritagihan(x *arrtagihan, jumlahtagihan int) {
+	if jumlahtagihan == 0 {
+		fmt.Println("Belum ada tagihan untuk dicari.")
+		return
+	}
+
+	var pilihanCari int
+	fmt.Println()
+	fmt.Println("======CARI TAGIHAN======")
+	fmt.Println("1. Cari berdasarkan Nama (Sequential Search)")
+	fmt.Println("2. Cari berdasarkan Nominal (Binary Search)")
+	fmt.Println()
+	fmt.Print("Pilihan Anda: ")
+	fmt.Scan(&pilihanCari)
+
+	switch pilihanCari {
+	default:
+		fmt.Println("Pilihan tidak tersedia.")
+
+	case 1:
+		var targetNama string
+		fmt.Print("Masukkan Nama Tagihan yang dicari: ")
+		fmt.Scan(&targetNama)
+
+		indeks := sequentialSearchNama(*x, jumlahtagihan, targetNama)
+		if len(indeks) == 0 {
+			fmt.Println("Tagihan dengan nama tersebut tidak ditemukan.")
+		} else {
+			fmt.Println()
+			fmt.Printf("Ditemukan %d tagihan:\n", len(indeks))
+			fmt.Println("==================================================================================================================================================================")
+			for _, i := range indeks {
+				fmt.Printf("| ID: %d\t | NAMA: %-10s\t | KATEGORI: %-10s\t | NOMINAL: %d\t | TANGGAL: %d/%d/%d\t | Status: %s\t |\n",
+					(*x)[i].id, (*x)[i].nama, (*x)[i].kategori, (*x)[i].nominal,
+					(*x)[i].tanggal, (*x)[i].bulan, (*x)[i].tahun, (*x)[i].status)
+			}
+			fmt.Println("==================================================================================================================================================================")
+		}
+
+	case 2:
+		var targetNominal int
+		fmt.Print("Masukkan Nominal yang dicari: ")
+		fmt.Scan(&targetNominal)
+
+		var temp arrtagihan = *x
+		var i, j int
+		for i = 1; i < jumlahtagihan; i++ {
+			key := temp[i]
+			j = i - 1
+			for j >= 0 && temp[j].nominal > key.nominal {
+				temp[j+1] = temp[j]
+				j--
+			}
+			temp[j+1] = key
+		}
+
+		indeks := binarySearchNominal(temp, jumlahtagihan, targetNominal)
+		if indeks == -1 {
+			fmt.Println("Tagihan dengan nominal tersebut tidak ditemukan.")
+		} else {
+			fmt.Println()
+			fmt.Println("Tagihan Ditemukan!")
+			fmt.Println("==================================================================================================================================================================")
+			fmt.Printf("| ID: %d\t | NAMA: %-10s\t | KATEGORI: %-10s\t | NOMINAL: %d\t | TANGGAL: %d/%d/%d\t | Status: %s\t |\n",
+				temp[indeks].id, temp[indeks].nama, temp[indeks].kategori, temp[indeks].nominal,
+				temp[indeks].tanggal, temp[indeks].bulan, temp[indeks].tahun, temp[indeks].status)
+			fmt.Println("==================================================================================================================================================================")
+		}
+	}
+	fmt.Println()
+}
+
 func lihatsemuatagihan(x *arrtagihan, jumlahtagihan int) {
 	var i int
 	if jumlahtagihan == 0 {
