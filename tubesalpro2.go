@@ -314,20 +314,34 @@ func caritagihan(x *arrtagihan, jumlahtagihan int) {
 
 func lihatsemuatagihan(x *arrtagihan, jumlahtagihan int) {
 	var i int
+
 	if jumlahtagihan == 0 {
 		fmt.Println("Maaf anda belum memiliki tagihan, silahkan tambahkan tagihan anda!")
-	} else {
-		fmt.Println()
-		fmt.Println("==================================================================================================================================================================")
-		fmt.Println("|								LIST DAFTAR TAGIHAN ANDA                                                                         |")
-		fmt.Println("==================================================================================================================================================================")
-		for i = 0; i < jumlahtagihan; i++ {
-			fmt.Printf("| ID: %d\t | NAMA: %-10s\t | KATEGORI: %-10s\t | NOMINAL: %d\t | TANGGAL: %d\t | BULAN: %d\t | TAHUN: %d\t | Status Sekarang: %s\t |\n",
-				x[i].id, x[i].nama, x[i].kategori, x[i].nominal, x[i].tanggal, x[i].bulan, x[i].tahun, x[i].status)
-		}
-		fmt.Println("==================================================================================================================================================================")
-		fmt.Println()
+		return
 	}
+
+	fmt.Println()
+	fmt.Println("==============================================================================================================")
+	fmt.Println("                                      LIST DAFTAR TAGIHAN ANDA")
+	fmt.Println("==============================================================================================================")
+	fmt.Printf("| %-3s | %-15s | %-15s | %-10s | %-10s | %-12s |\n",
+		"ID", "Nama", "Kategori", "Nominal", "Jatuh Tempo", "Status")
+	fmt.Println("==============================================================================================================")
+
+	for i = 0; i < jumlahtagihan; i++ {
+		fmt.Printf("| %-3d | %-15s | %-15s | Rp%-8d | %02d/%02d/%04d | %-12s |\n",
+			x[i].id,
+			x[i].nama,
+			x[i].kategori,
+			x[i].nominal,
+			x[i].tanggal,
+			x[i].bulan,
+			x[i].tahun,
+			x[i].status)
+	}
+
+	fmt.Println("==============================================================================================================")
+	fmt.Println()
 }
 
 func urutkantagihan(x *arrtagihan, jumlahtagihan int) {
