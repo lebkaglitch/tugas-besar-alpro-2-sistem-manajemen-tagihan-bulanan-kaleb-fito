@@ -1,0 +1,69 @@
+Nama      : Internet
+Kategori  : Utilitas
+Nominal   : 350000
+Tanggal   : 15
+Bulan     : 6
+Tahun     : 2026
+
+Nama      : Listrik
+Kategori  : Utilitas
+Nominal   : 450000
+Tanggal   : 10
+Bulan     : 6
+Tahun     : 2026
+
+Nama      : Air
+Kategori  : Utilitas
+Nominal   : 125000
+Tanggal   : 5
+Bulan     : 6
+Tahun     : 2026
+
+Nama      : Netflix
+Kategori  : Hiburan
+Nominal   : 65000
+Tanggal   : 25
+Bulan     : 6
+Tahun     : 2026
+
+Nama      : Spotify
+Kategori  : Hiburan
+Nominal   : 55000
+Tanggal   : 20
+Bulan     : 6
+Tahun     : 2026
+
+Nama      : BPJS
+Kategori  : Kesehatan
+Nominal   : 150000
+Tanggal   : 8
+Bulan     : 6
+Tahun     : 2026
+
+Nama      : Kos
+Kategori  : Tempat_tinggal
+Nominal   : 1200000
+Tanggal   : 1
+Bulan     : 6
+Tahun     : 2026
+
+Nama      : Pulsa
+Kategori  : Komunikasi
+Nominal   : 100000
+Tanggal   : 18
+Bulan     : 6
+Tahun     : 2026
+
+Nama      : Gojek
+Kategori  : Transportasi
+Nominal   : 250000
+Tanggal   : 28
+Bulan     : 6
+Tahun     : 2026
+
+Nama      : Parkir
+Kategori  : Transportasi
+Nominal   : 5000
+Tanggal   : 12
+Bulan     : 6
+Tahun     : 2026

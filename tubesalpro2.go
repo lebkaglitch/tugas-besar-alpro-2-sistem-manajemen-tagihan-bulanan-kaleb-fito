@@ -19,20 +19,20 @@ func main() {
 	jalankanpilihan(&data, &jumlahtagihan, &idterkahir) // bingung di main itu mau manggil prosedur yg mana antara menu utama ama jalankan pilihan
 }
 func menuutama(pilihanmenu *int) {
-	fmt.Println("==============================")
-	fmt.Println("|	SELAMAT DATANG       |")
-	fmt.Println("==============================")
-	fmt.Println()
-	fmt.Println("1. Tambah Tagihan")
-	fmt.Println("2. Ubah Tagihan")
-	fmt.Println("3. Hapus Tagihan")
-	fmt.Println("4. Lihat Semua Tagihan")
-	fmt.Println("5. cari Tagihan")    // ini buat sequential dan binary search
-	fmt.Println("6. Urutkan Tagihan") // ini buat selection dan insertion sort
-	fmt.Println("7. Lunaskan Tagihan")
-	fmt.Println("0. keluar")
-	fmt.Println()
-	fmt.Println("==============================")
+	fmt.Println("========================================")
+	fmt.Println("|            SELAMAT DATANG            |")
+	fmt.Println("========================================")
+	fmt.Println("|                                      |")
+	fmt.Println("|1. Tambah Tagihan                     |")
+	fmt.Println("|2. Ubah Tagihan                       |")
+	fmt.Println("|3. Hapus Tagihan                      |")
+	fmt.Println("|4. Lihat Semua Tagihan                |")
+	fmt.Println("|5. cari Tagihan                       |") // ini buat sequential dan binary search
+	fmt.Println("|6. Urutkan Tagihan                    |") // ini buat selection dan insertion sort
+	fmt.Println("|7. Lunaskan Tagihan                   |")
+	fmt.Println("|0. keluar                             |")
+	fmt.Println("|                                      |")
+	fmt.Println("========================================")
 	fmt.Print("Masukkan Pilihan Anda (1/2/3/4/5/6/7/0): ")
 	fmt.Scan(pilihanmenu)
 }
@@ -59,7 +59,15 @@ func jalankanpilihan(x *arrtagihan, n *int, idterakhir *int) {
 		case 7:
 			tandailunas(x, *n)
 		case 0:
-			fmt.Println("Terima kasih")
+			fmt.Println()
+			fmt.Println("====================")
+			fmt.Println("|   TERIMA KASIH   |")
+			fmt.Println("--------------------")
+			fmt.Println("|                  |")
+			fmt.Println("|        :)        |")
+			fmt.Println("|                  |")
+			fmt.Println("====================")
+			fmt.Println()
 		}
 	}
 }
@@ -67,7 +75,7 @@ func tambahtagihan(data *arrtagihan, jumlahtagihan *int, idterakhir *int) {
 	var t Tagihan
 	if *jumlahtagihan < nmax {
 		fmt.Println()
-		fmt.Println("======TAMBAH TAGIHAN======")
+		fmt.Println("====== TAMBAH TAGIHAN ======")
 		fmt.Println()
 		fmt.Print("Nama Tagihan: ") // nama ama kategori ada masalah jika ada spasi nya
 		fmt.Scan(&t.nama)
@@ -88,10 +96,15 @@ func tambahtagihan(data *arrtagihan, jumlahtagihan *int, idterakhir *int) {
 		(*data)[*jumlahtagihan] = t
 		*jumlahtagihan = *jumlahtagihan + 1
 		fmt.Println()
-		fmt.Println("TAGIHAN ANDA BERHASIL DITAMBAHKAN :') ")
+		fmt.Println("================================")
+		fmt.Println("| TAGIHAN BERHASIL DITAMBAHKAN |")
+		fmt.Println("================================")
 		fmt.Println()
 	} else {
-		fmt.Println("MAAF TAGIHAN ANDA SUDAH PENUH T_T")
+		fmt.Println()
+		fmt.Println("=======================================")
+		fmt.Println("| MAAF, KAPASITAS TAGIHAN SUDAH PENUH |")
+		fmt.Println("=======================================")
 		fmt.Println()
 	}
 }
@@ -102,18 +115,32 @@ func ubahtagihan(x *arrtagihan, jumlahtagihan int) {
 	var namaBaru, kategoriBaru string
 
 	if jumlahtagihan == 0 {
-		fmt.Println("Anda belum mempunyai tagihan")
+		fmt.Println()
+		fmt.Println("==================================")
+		fmt.Println("| BELUM ADA TAGIHAN UNTUK DIUBAH |")
+		fmt.Println("==================================")
+		fmt.Println()
 	} else {
+		fmt.Println()
+		fmt.Println("====== UBAH TAGIHAN ======")
+		fmt.Println()
+		lihatsemuatagihan(x, jumlahtagihan)
 		fmt.Println()
 		fmt.Println("Masukan ID tagihan: ")
 		fmt.Scan(&IDubah)
 
 		indexposisi = cariposisiID(*x, jumlahtagihan, IDubah)
 		if indexposisi == -1 {
-			fmt.Println("Maaf, ID yang dicari tidak ditemukan")
+			fmt.Println()
+			fmt.Println("==============================")
+			fmt.Println("| ID TAGIHAN TIDAK DITEMUKAN |")
+			fmt.Println("==============================")
+			fmt.Println()
 		} else {
 			fmt.Println()
-			fmt.Println("Tagihan Ditemukan!")
+			fmt.Println("=======================")
+			fmt.Println("| TAGIHAN DITEMUKAN ! |")
+			fmt.Println("=======================")
 			fmt.Println()
 			fmt.Printf("ID\t\t: %d\n", (*x)[indexposisi].id)
 			fmt.Printf("Nama\t\t: %s\n", (*x)[indexposisi].nama)
@@ -139,19 +166,19 @@ func ubahtagihan(x *arrtagihan, jumlahtagihan int) {
 				fmt.Println("Masukkan Nama Baru: ")
 				fmt.Scan(&namaBaru)
 				(*x)[indexposisi].nama = namaBaru
-				fmt.Printf("Nama Berhasil Diubah menjadi '%s\n'", namaBaru)
+				fmt.Printf("Nama Berhasil Diubah menjadi '%s'\n", namaBaru)
 				fmt.Println()
 			case 2:
 				fmt.Println("Masukkan Kategori Baru: ")
 				fmt.Scan(&kategoriBaru)
 				(*x)[indexposisi].kategori = kategoriBaru
-				fmt.Printf("Kategori Berhasil Diubah menjadi '%s\n'", kategoriBaru)
+				fmt.Printf("Kategori Berhasil Diubah menjadi '%s'\n", kategoriBaru)
 				fmt.Println()
 			case 3:
 				fmt.Println("Masukkan Nominal Baru: ") // biasanya nominal ada Rp nya, tapi nanti aja, inget aja asal
 				fmt.Scan(&nominalBaru)
 				(*x)[indexposisi].nominal = nominalBaru
-				fmt.Printf("Nominal Berhasil Diubah menjadi '%d\n'", nominalBaru)
+				fmt.Printf("Nominal Berhasil Diubah menjadi '%d'\n", nominalBaru)
 				fmt.Println()
 			case 4:
 				fmt.Println("Masukkan Tanggal Baru: ")
@@ -178,26 +205,40 @@ func ubahtagihan(x *arrtagihan, jumlahtagihan int) {
 
 func hapustagihan(x *arrtagihan, jumlahtagihan *int) {
 	var idfordelete, indexposisi, i int
-
 	if *jumlahtagihan == 0 {
-		fmt.Println("Belum ada tagihan")
-		return
-	}
-	//aku ada kepikiran untuk setiap hapus dan ubah, nanti akan muncul lagi list nya, biar si user bisa langsung cek list nya tanpa perlu ke fitur liat tagihan
-	fmt.Println()
-	fmt.Println("Masukkan ID tagihan yang akan dihapus: ")
-	fmt.Scan(&idfordelete)
-
-	indexposisi = cariposisiID(*x, *jumlahtagihan, idfordelete)
-	if indexposisi == -1 {
-		fmt.Println("Maaf, ID yang dicari tidak ditemukan")
+		fmt.Println()
+		fmt.Println("===================================")
+		fmt.Println("| BELUM ADA TAGIHAN UNTUK DIHAPUS |")
+		fmt.Println("===================================")
+		fmt.Println()
 	} else {
-		for i = indexposisi; i < *jumlahtagihan-1; i++ {
-			(*x)[i] = (*x)[i+1]
-		}
-		*jumlahtagihan = *jumlahtagihan - 1
+		//aku ada kepikiran untuk setiap hapus dan ubah, nanti akan muncul lagi list nya, biar si user bisa langsung cek list nya tanpa perlu ke fitur liat tagihan
+		fmt.Println()
+		fmt.Println("====== HAPUS TAGIHAN ======")
+		fmt.Println()
+		lihatsemuatagihan(x, *jumlahtagihan)
+		fmt.Println()
+		fmt.Println("Masukkan ID tagihan yang akan dihapus: ")
+		fmt.Scan(&idfordelete)
 
-		fmt.Println("Selamat, Tagihan anda berhasil dihapus")
+		indexposisi = cariposisiID(*x, *jumlahtagihan, idfordelete)
+		if indexposisi == -1 {
+			fmt.Println()
+			fmt.Println("==============================")
+			fmt.Println("| ID TAGIHAN TIDAK DITEMUKAN |")
+			fmt.Println("==============================")
+			fmt.Println()
+		} else {
+			for i = indexposisi; i < *jumlahtagihan-1; i++ {
+				(*x)[i] = (*x)[i+1]
+			}
+			*jumlahtagihan = *jumlahtagihan - 1
+			fmt.Println()
+			fmt.Println("==============================")
+			fmt.Println("| TAGIHAN BERHASIL DIHAPUS ! |")
+			fmt.Println("==============================")
+			fmt.Println()
+		}
 	}
 }
 
@@ -243,110 +284,127 @@ func binarySearchNominal(x arrtagihan, jumlahtagihan int, targetNominal int) int
 // ===== FUNGSI CARI TAGIHAN =====
 func caritagihan(x *arrtagihan, jumlahtagihan int) {
 	if jumlahtagihan == 0 {
-		fmt.Println("Belum ada tagihan untuk dicari.")
-		return
-	}
-	var pilihanCari int
-	fmt.Println()
-	fmt.Println("======CARI TAGIHAN======")
-	fmt.Println("1. Cari berdasarkan Nama (Sequential Search)")
-	fmt.Println("2. Cari berdasarkan Nominal (Binary Search)")
-	fmt.Println()
-	fmt.Print("Pilihan Anda: ")
-	fmt.Scan(&pilihanCari)
+		fmt.Println()
+		fmt.Println("==================================")
+		fmt.Println("| BELUM ADA TAGIHAN UNTUK DICARI |")
+		fmt.Println("==================================")
+		fmt.Println()
+	} else {
+		var pilihanCari int
+		fmt.Println()
+		fmt.Println("====== CARI TAGIHAN ======")
+		fmt.Println("1. Cari berdasarkan Nama (Sequential Search)")
+		fmt.Println("2. Cari berdasarkan Nominal (Binary Search)")
+		fmt.Println()
+		fmt.Print("Pilihan Anda: ")
+		fmt.Scan(&pilihanCari)
 
-	switch pilihanCari {
-	default:
-		fmt.Println("Pilihan tidak tersedia.")
+		switch pilihanCari {
+		default:
+			fmt.Println("Pilihan tidak tersedia.")
 
-	case 1:
-		var targetNama string
-		fmt.Print("Masukkan Nama Tagihan yang dicari: ")
-		fmt.Scan(&targetNama)
+		case 1:
+			var targetNama string
+			fmt.Print("Masukkan Nama Tagihan yang dicari: ")
+			fmt.Scan(&targetNama)
 
-		indeks := sequentialSearchNama(*x, jumlahtagihan, targetNama)
-		if len(indeks) == 0 {
-			fmt.Println("Tagihan dengan nama tersebut tidak ditemukan.")
-		} else {
-			fmt.Println()
-			fmt.Printf("Ditemukan %d tagihan:\n", len(indeks))
-			fmt.Println("==================================================================================================================================================================")
-			for _, i := range indeks {
-				fmt.Printf("| ID: %d\t | NAMA: %-10s\t | KATEGORI: %-10s\t | NOMINAL: %d\t | TANGGAL: %d/%d/%d\t | Status: %s\t |\n",
-					(*x)[i].id, (*x)[i].nama, (*x)[i].kategori, (*x)[i].nominal,
-					(*x)[i].tanggal, (*x)[i].bulan, (*x)[i].tahun, (*x)[i].status)
+			indeks := sequentialSearchNama(*x, jumlahtagihan, targetNama)
+			if len(indeks) == 0 {
+				fmt.Println()
+				fmt.Println("===========================")
+				fmt.Println("| TAGIHAN TIDAK DITEMUKAN |")
+				fmt.Println("===========================")
+				fmt.Println()
+			} else {
+				fmt.Println()
+				fmt.Printf("Ditemukan %d tagihan:\n", len(indeks))
+				fmt.Println("======================================================================================")
+				fmt.Printf("| %-3s | %-15s | %-15s | %-10s | %-10s | %-12s  |\n",
+					"ID", "Nama", "Kategori", "Nominal", "Jatuh Tempo", "Status")
+				fmt.Println("--------------------------------------------------------------------------------------")
+
+				for _, i := range indeks {
+					fmt.Printf("| %-3d | %-15s | %-15s | Rp.%-8d| %02d/%02d/%04d  | %-12s  |\n",
+						(*x)[i].id,
+						(*x)[i].nama,
+						(*x)[i].kategori,
+						(*x)[i].nominal,
+						(*x)[i].tanggal,
+						(*x)[i].bulan,
+						(*x)[i].tahun,
+						(*x)[i].status)
+				}
+
+				fmt.Println("======================================================================================")
 			}
-			fmt.Println("==================================================================================================================================================================")
-		}
+		case 2:
+			var targetNominal int
+			fmt.Print("Masukkan Nominal yang dicari: ")
+			fmt.Scan(&targetNominal)
 
-	case 2:
-		var targetNominal int
-		fmt.Print("Masukkan Nominal yang dicari: ")
-		fmt.Scan(&targetNominal)
-
-		var temp arrtagihan = *x
-		var i, j int
-		for i = 1; i < jumlahtagihan; i++ {
-			key := temp[i]
-			j = i - 1
-			for j >= 0 && temp[j].nominal > key.nominal {
-				temp[j+1] = temp[j]
-				j--
+			var temp arrtagihan = *x
+			var i, j int
+			for i = 1; i < jumlahtagihan; i++ {
+				key := temp[i]
+				j = i - 1
+				for j >= 0 && temp[j].nominal > key.nominal {
+					temp[j+1] = temp[j]
+					j--
+				}
+				temp[j+1] = key
 			}
-			temp[j+1] = key
-		}
 
-		indeks := binarySearchNominal(temp, jumlahtagihan, targetNominal)
-		if indeks == -1 {
-			fmt.Println("Tagihan dengan nominal tersebut tidak ditemukan.")
-		} else {
-			fmt.Println()
-			fmt.Println("Tagihan Ditemukan!")
-			fmt.Println("==================================================================================================================================================================")
-			fmt.Printf("| ID: %d\t | NAMA: %-10s\t | KATEGORI: %-10s\t | NOMINAL: %d\t | TANGGAL: %d/%d/%d\t | Status: %s\t |\n",
-				temp[indeks].id, temp[indeks].nama, temp[indeks].kategori, temp[indeks].nominal,
-				temp[indeks].tanggal, temp[indeks].bulan, temp[indeks].tahun, temp[indeks].status)
-			fmt.Println("==================================================================================================================================================================")
+			indeks := binarySearchNominal(temp, jumlahtagihan, targetNominal)
+			if indeks == -1 {
+				fmt.Println("Tagihan dengan nominal tersebut tidak ditemukan.")
+			} else {
+				fmt.Println()
+				fmt.Println("=====================")
+				fmt.Println("| TAGIHAN DITEMUKAN |")
+				fmt.Println("=====================")
+				fmt.Println()
+				fmt.Println("======================================================================================")
+				fmt.Printf("| %-3s | %-15s | %-15s | %-10s | %-10s  | %-12s |\n", "ID", "Nama", "Kategori", "Nominal", "Jatuh Tempo", "Status")
+				fmt.Println("--------------------------------------------------------------------------------------")
+				fmt.Printf("| %-3d | %-15s | %-15s | Rp.%-8d| %02d/%02d/%5d  | %-12s |\n", temp[indeks].id, temp[indeks].nama, temp[indeks].kategori, temp[indeks].nominal, temp[indeks].tanggal, temp[indeks].bulan, temp[indeks].tahun, temp[indeks].status)
+				fmt.Println("======================================================================================")
+			}
 		}
+		fmt.Println()
 	}
-	fmt.Println()
 }
 
 func lihatsemuatagihan(x *arrtagihan, jumlahtagihan int) {
 	var i int
 
 	if jumlahtagihan == 0 {
-		fmt.Println("Maaf anda belum memiliki tagihan, silahkan tambahkan tagihan anda!")
-		return
+		fmt.Println()
+		fmt.Println("=======================================")
+		fmt.Println("| BELUM ADA TAGIHAN UNTUK DITAMPILKAN |")
+		fmt.Println("=======================================")
+		fmt.Println()
+	} else {
+		fmt.Println()
+		fmt.Println("======================================================================================")
+		fmt.Println("|                           LIST DAFTAR TAGIHAN ANDA                                 |")
+		fmt.Println("======================================================================================")
+		fmt.Printf("| %-3s | %-15s | %-15s | %-10s | %-10s  | %-12s |\n", "ID", "Nama", "Kategori", "Nominal", "Jatuh Tempo", "Status")
+		fmt.Println("--------------------------------------------------------------------------------------")
+		for i = 0; i < jumlahtagihan; i++ {
+			fmt.Printf("| %-3d | %-15s | %-15s | Rp.%-8d| %02d/%02d/%4d   | %-12s |\n", x[i].id, x[i].nama, x[i].kategori, x[i].nominal, x[i].tanggal, x[i].bulan, x[i].tahun, x[i].status)
+		}
+		fmt.Println("======================================================================================")
+		fmt.Println()
 	}
-
-	fmt.Println()
-	fmt.Println("==============================================================================================================")
-	fmt.Println("                                      LIST DAFTAR TAGIHAN ANDA")
-	fmt.Println("==============================================================================================================")
-	fmt.Printf("| %-3s | %-15s | %-15s | %-10s | %-10s | %-12s |\n",
-		"ID", "Nama", "Kategori", "Nominal", "Jatuh Tempo", "Status")
-	fmt.Println("==============================================================================================================")
-
-	for i = 0; i < jumlahtagihan; i++ {
-		fmt.Printf("| %-3d | %-15s | %-15s | Rp%-8d | %02d/%02d/%04d | %-12s |\n",
-			x[i].id,
-			x[i].nama,
-			x[i].kategori,
-			x[i].nominal,
-			x[i].tanggal,
-			x[i].bulan,
-			x[i].tahun,
-			x[i].status)
-	}
-
-	fmt.Println("==============================================================================================================")
-	fmt.Println()
 }
 
 func urutkantagihan(x *arrtagihan, jumlahtagihan int) {
 	if jumlahtagihan == 0 {
-		fmt.Println("Maaf anda belum memiliki tagihan")
+		fmt.Println()
+		fmt.Println("=====================================")
+		fmt.Println("| BELUM ADA TAGIHAN UNTUK DIURUTKAN |")
+		fmt.Println("=====================================")
+		fmt.Println()
 	} else {
 		var pilihansort, pilihanurut int
 		fmt.Println()
@@ -360,7 +418,7 @@ func urutkantagihan(x *arrtagihan, jumlahtagihan int) {
 
 		fmt.Println()
 		fmt.Println("1. Ascending (jatuh tempo terdekat)")
-		fmt.Println("2. Desscending (jatuh tempo terjauh)")
+		fmt.Println("2. Descending (jatuh tempo terjauh)")
 		fmt.Scan(&pilihanurut)
 
 		switch pilihansort {
@@ -449,7 +507,10 @@ func insertionsort(x *arrtagihan, jumlahtagihan int, pilihanurut int) {
 		return
 	}
 	fmt.Println()
-	fmt.Println("Pengurutan berhasil dilakukan")
+	fmt.Println("=================================")
+	fmt.Println("| PENGURUTAN BERHASIL DILAKUKAN |")
+	fmt.Println("=================================")
+	fmt.Println()
 	fmt.Println("Diurutkan berdasarkan tanggal jatuh tempo")
 }
 
@@ -464,23 +525,30 @@ func tandailunas(x *arrtagihan, jumlahtagihan int) {
 	var idcari, idx int
 
 	if jumlahtagihan == 0 {
-		fmt.Println("Belum ada tagihan.")
-		return
-	}
-
-	fmt.Println()
-	fmt.Println("======TANDAI LUNAS======")
-	fmt.Print("Masukkan ID tagihan yang sudah dibayar: ")
-	fmt.Scan(&idcari)
-
-	idx = cariposisiID(*x, jumlahtagihan, idcari)
-	if idx == -1 {
-		fmt.Println("Maaf, ID yang dicari tidak ditemukan")
-	} else if (*x)[idx].status == "Lunas" {
-		fmt.Printf("Tagihan '%s' sudah berstatus Lunas.\n", (*x)[idx].nama)
+		fmt.Println()
+		fmt.Println("======================================")
+		fmt.Println("| BELUM ADA TAGIHAN UNTUK DILUNASKAN |")
+		fmt.Println("======================================")
+		fmt.Println()
 	} else {
-		(*x)[idx].status = "Lunas"
-		fmt.Printf("Tagihan '%s' berhasil ditandai Lunas!\n", (*x)[idx].nama)
+		fmt.Println()
+		fmt.Println("======TANDAI LUNAS======")
+		fmt.Print("Masukkan ID tagihan yang sudah dibayar: ")
+		fmt.Scan(&idcari)
+
+		idx = cariposisiID(*x, jumlahtagihan, idcari)
+		if idx == -1 {
+			fmt.Println()
+			fmt.Println("==============================")
+			fmt.Println("| ID TAGIHAN TIDAK DITEMUKAN |")
+			fmt.Println("==============================")
+			fmt.Println()
+		} else if (*x)[idx].status == "Lunas" {
+			fmt.Printf("Tagihan '%s' sudah berstatus Lunas.\n", (*x)[idx].nama)
+		} else {
+			(*x)[idx].status = "Lunas"
+			fmt.Printf("Tagihan '%s' berhasil ditandai Lunas!\n", (*x)[idx].nama)
+		}
 	}
 }
 
