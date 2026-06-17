@@ -322,19 +322,9 @@ func caritagihan(x *arrtagihan, jumlahtagihan int) {
 				fmt.Printf("| %-3s | %-15s | %-15s | %-10s | %-10s | %-12s  |\n",
 					"ID", "Nama", "Kategori", "Nominal", "Jatuh Tempo", "Status")
 				fmt.Println("--------------------------------------------------------------------------------------")
-
 				for _, i := range indeks {
-					fmt.Printf("| %-3d | %-15s | %-15s | Rp.%-8d| %02d/%02d/%04d  | %-12s  |\n",
-						(*x)[i].id,
-						(*x)[i].nama,
-						(*x)[i].kategori,
-						(*x)[i].nominal,
-						(*x)[i].tanggal,
-						(*x)[i].bulan,
-						(*x)[i].tahun,
-						(*x)[i].status)
+					fmt.Printf("| %-3d | %-15s | %-15s | Rp.%-8d| %02d/%02d/%04d  | %-12s  |\n", (*x)[i].id, (*x)[i].nama, (*x)[i].kategori, (*x)[i].nominal, (*x)[i].tanggal, (*x)[i].bulan, (*x)[i].tahun, (*x)[i].status)
 				}
-
 				fmt.Println("======================================================================================")
 			}
 		case 2:
@@ -353,7 +343,6 @@ func caritagihan(x *arrtagihan, jumlahtagihan int) {
 				}
 				temp[j+1] = key
 			}
-
 			indeks := binarySearchNominal(temp, jumlahtagihan, targetNominal)
 			if indeks == -1 {
 				fmt.Println("Tagihan dengan nominal tersebut tidak ditemukan.")
