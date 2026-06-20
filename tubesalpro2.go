@@ -375,7 +375,7 @@ func lihatsemuatagihan(x *arrtagihan, jumlahtagihan int) {
 	} else {
 		fmt.Println()
 		fmt.Println("======================================================================================")
-		fmt.Println("|                           LIST DAFTAR TAGIHAN ANDA                                 |")
+		fmt.Println("|                             LIST DAFTAR TAGIHAN ANDA                               |")
 		fmt.Println("======================================================================================")
 		fmt.Printf("| %-3s | %-15s | %-15s | %-10s | %-10s  | %-12s |\n", "ID", "Nama", "Kategori", "Nominal", "Jatuh Tempo", "Status")
 		fmt.Println("--------------------------------------------------------------------------------------")
